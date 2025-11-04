@@ -21,26 +21,22 @@ main: ldi r16, 0 ; set register r16 to zero
       ; delay for 400ms
       
       ldi r21, 40
-loopone:
+
       call delay
-      dec r21
-      brne loopone
 
       ldi r16, 0x00
       out PORTB, r16
 
       ; delay for 200ms
 
-      ldi r22, 20
-looptwo:
-      call delay
-      dec r22
-      brne looptwo
+      ldi r21, 20
 
+      call delay
 
       rjmp main
 
-delay: 
+delay:
+firstloop: 
         ldi r18, 157
 secondloop:
         ldi r19, 255
@@ -50,7 +46,8 @@ thirdloop:
         brne thirdloop
       dec r18
       brne secondloop
+   dec r21
+   brne firstloop
    ret 
-
 
 mainloop: rjmp mainloop ; jump back to mainloop address 
